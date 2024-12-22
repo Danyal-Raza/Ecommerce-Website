@@ -9,19 +9,48 @@ const CheckoutPage = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!address || !phone || !email) {
+  
+    if (!name || !address || !phone || !email) {
       alert("Please fill in all the required fields.");
       return;
     }
-    alert("Order placed successfully!");
-    clearCart();
-    navigate("/");
+
+    const orderData = {
+      name,
+      email,
+      address,
+      city,
+      zip,
+      items: cartItems.map((item) => ({
+        productId: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        price: parseFloat(item.price.replace(/[^\d.-]/g, "")),
+      })),
+      totalAmount: parseFloat(calculateTotal()),
+    };
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/checkout", orderData);
+  
+      if (response.status === 201) {
+        alert("Order placed successfully!");
+        clearCart();
+        navigate("/");
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error.response?.data || error.message);
+      alert("Failed to place order. Please try again.");
+    }
   };
 
   const calculateTotal = () => {
