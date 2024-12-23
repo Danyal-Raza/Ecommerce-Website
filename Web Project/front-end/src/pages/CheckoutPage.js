@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useCart } from "../CartContext";
 
 const CheckoutPage = () => {
@@ -104,6 +105,24 @@ const CheckoutPage = () => {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId="formCity" className="mb-3">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your city name"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId="formZip" className="mb-3">
+                <Form.Label>Zip Code</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your city zip code"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
                 />
               </Form.Group>
               <Form.Group controlId="formPaymentMethod" className="mb-3">
