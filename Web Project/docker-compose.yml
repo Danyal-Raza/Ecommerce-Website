@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./front-end
     ports:
       - "3000:80"
     depends_on:
