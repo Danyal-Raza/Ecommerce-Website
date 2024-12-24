@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/ecommerce", {
+mongoose.connect("mongodb://mongo:27017/ecommerce", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
